@@ -20,7 +20,7 @@ class Ball(pygame.sprite.Sprite):
         # Draw the ball (a rectangle!)
         pygame.draw.circle(self.image, color, (5, 5), 5)
 
-        self.velocity = [randint(6, 7), randint(-15, 15)]
+        self.velocity = [randint(3, 8), randint(-15, 15)]
 
         # Fetch the rectangle object that has the dimensions of the image.
         self.rect = self.image.get_rect()
