@@ -60,6 +60,35 @@ pygame.font.init()
 myFont = pygame.font.SysFont('hooge 05_53', 65)
 smallFont = pygame.font.SysFont('hooge 05_53', 20)
 Space = pygame.font.SysFont('hooge 05_53', 17)
+largeFont = pygame.font.SysFont('hooge 05_53', 85)
+largerFont = pygame.font.SysFont('hooge 05_53', 120)
+
+
+def pause():
+    paused = True
+    while paused:
+        for event_pause in pygame.event.get():
+            if event_pause.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event_pause.type == pygame.KEYDOWN:
+                if event_pause.key == pygame.K_c:
+                    paused = False
+                elif event_pause.key == pygame.K_q:
+                    pygame.quit()
+                    quit()
+
+        screen.fill(BLACK)
+        textSurface = largerFont.render('I I', False, (255, 255, 255))
+        screen.blit(textSurface, (295, 45))
+        textSurface = largeFont.render('PAUSED', False, (255, 255, 255))
+        screen.blit(textSurface, (175, 160))
+        pygame.draw.rect(screen, SILVER, (219, 280, 260, 60))
+        textSurface = smallFont.render('PRESS C TO CONTINUE', False, (255, 255, 255))
+        screen.blit(textSurface, (223, 300))
+
+        pygame.display.update()
+
 
 introOn = True
 while introOn:
@@ -68,6 +97,10 @@ while introOn:
     screen.blit(textSurface, (110, 25))
     textSurface = smallFont.render('By Marco Gava', False, (255, 255, 255))
     screen.blit(textSurface, (400, 85))
+    textSurface = smallFont.render('PRESS P', False, (255, 255, 255))
+    screen.blit(textSurface, (25, 225))
+    textSurface = smallFont.render('TO PAUSE', False, (255, 255, 255))
+    screen.blit(textSurface, (25, 249))
     pygame.draw.rect(screen, SILVER, (211, 380, 260, 60))
     textSurface = Space.render('[PRESS SPACE TO PLAY!]', False, (255, 255, 255))
     screen.blit(textSurface, (220, 403))
@@ -123,10 +156,16 @@ while carryOn:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_x:  # Pressing the x Key will quit the game
                 carryOn = False
+            elif event.key == pygame.K_p:
+                pause()
+
+
         elif event.type == PLAYSOUNDEVENT:
             exitGame -= 1
             if exitGame <= 0:
                 carryOn = False
+
+
     # Moving the paddles when the use uses the arrow keys (player A) or "W/S" keys (player B)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
